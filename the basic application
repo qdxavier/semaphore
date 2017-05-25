@@ -1,0 +1,36 @@
+The semaphore is mainly used for sync and commnunication between threads or between process.
+There are two versions sempaphore, one is system V, the other is POSIX.
+
+The APIs of system V is as below:
+semctl()
+semget()
+semop()
+
+The APIs of POSIX is as below:
+sem_getvalue()
+sem_post()
+sem_timedwait()
+sem_try_wait()
+sem_wait()
+
+sem_destroy()         
+sem_init()            //无名信号量， used in thread sync commonly
+
+sem_close()           //有名信号量， used in process sync commonly
+sem_open()
+sem_unlink()
+
+example:
+
+#include "semaphore.h"
+#include "fcntl.h"
+
+sem_t *sem;
+if((sem == sem_open("my_sem", O_CREAT, 0666, 1)) == SEM_FAILED)
+{
+  return -1;
+}
+
+sem_post(sem);
+sem_wait(sem);
+
